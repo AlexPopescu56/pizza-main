@@ -1,16 +1,18 @@
 using ContosoPizza.Data;
 using ContosoPizza.Services;
 using Microsoft.EntityFrameworkCore;
- 
+using Microsoft.Extensions.Options;
+
+
 var builder = WebApplication.CreateBuilder(args);
  
 builder.Services.AddRazorPages();
  
-if (builder.Environment.IsDevelopment())
+if (builder.Environment.ToString()=="Local")
 {
     builder.Services.AddDbContext<PizzaContext>(options =>
-        options.UseSqlite("Data Source=ContosoPizza.db"));
-    Console.WriteLine("Using SQLite for development");
+        options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    Console.WriteLine("Using SQLite locally");
 }
 else
 {
@@ -20,7 +22,13 @@ else
         options.UseSqlServer(connectionString));
     Console.WriteLine("Using Azure SQL Database for production");
 }
- 
+
+builder.Services.AddApplicationInsightsTelemetry(Options =>
+{
+    Options.ConnectionString = builder.Configuration.GetConnectionString("ApplicationInsights")
+    ?? builder.Configuration["ApplicationInsights:ConnectionString"];
+});
+
 builder.Services.AddScoped<PizzaService>();
  
 var app = builder.Build();
