@@ -5,14 +5,12 @@ using ContosoPizza.Services;
 
 namespace ContosoPizza.Pages
 {
-    public class PizzaListModel : PageModel
+    public class MenuModel : PageModel
     {
         private readonly PizzaService _service;
-        [BindProperty]
-        public Pizza NewPizza { get; set; } = default!;
         public IList<Pizza> PizzaList { get; set; } = default!;
 
-        public PizzaListModel(PizzaService service)
+        public MenuModel(PizzaService service)
         {
             _service = service;
         }
@@ -21,21 +19,10 @@ namespace ContosoPizza.Pages
         {
             PizzaList = _service.GetPizzas();
         }
-        public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid || NewPizza == null)
-            {
-                return Page();
-            }
 
-            _service.AddPizza(NewPizza);
-
-            return RedirectToPage("/Menu");
-        }
         public IActionResult OnPostDelete(int id)
         {
             _service.DeletePizza(id);
-
             return RedirectToPage();
         }
     }
