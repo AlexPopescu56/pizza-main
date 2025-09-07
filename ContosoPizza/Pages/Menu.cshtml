@@ -22,6 +22,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Price</th>
                             <th scope="col">Size</th>
+                            <th scope="col">Description</th>
                             <th scope="col">Gluten Free</th>
                             <th scope="col">Actions</th>
                         </tr>
@@ -35,6 +36,7 @@
                                 <td>
                                     <span class="badge bg-secondary">@pizza.Size</span>
                                 </td>
+                                <td><strong>@pizza.Name</strong></td>
                                 <td>
                                     @if (pizza.IsGlutenFree)
                                     {
