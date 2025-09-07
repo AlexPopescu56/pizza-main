@@ -10,6 +10,9 @@ public class Pizza
     [Required]
     public string? Name { get; set; }
     [Required]
+    public string? PhotoString { get; set; }
+    
+    [Required]
     [EnumDataType(typeof(PizzaSize))]
     [Column(TypeName = "nvarchar(20)")]
     public PizzaSize Size { get; set; }
