@@ -17,9 +17,10 @@ namespace ContosoPizza.Pages
             _service = service;
         }
 
+
         public void OnGet()
         {
-           
+
         }
         public IActionResult OnPost()
         {
