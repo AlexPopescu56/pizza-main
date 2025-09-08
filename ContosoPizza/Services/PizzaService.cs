@@ -25,10 +25,12 @@ namespace ContosoPizza.Services
 
         public void AddPizza(Pizza pizza)
         {
+             _logger.LogInformation("Attempting to add pizza: {PizzaName}", pizza.Name);
             if (_context.Pizzas != null)
             {
                 _context.Pizzas.Add(pizza);
-                _context.SaveChanges();
+                var changes= _context.SaveChanges();
+                _logger.LogInformation("SaveChanges returned: {Changes} changes", changes);
             }
              _logger.LogInformation("Added new pizza: {PizzaName}", pizza.Name);
         }
