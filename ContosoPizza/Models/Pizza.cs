@@ -10,7 +10,6 @@ public class Pizza
     [Required]
     public string? Name { get; set; }
 
-    public string? PhotoString { get; set; }
 
     [Required]
     [EnumDataType(typeof(PizzaSize))]
